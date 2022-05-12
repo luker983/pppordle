@@ -1,12 +1,10 @@
-# 🅿️🅿️🅿️ordle
+# 🅿️🅿️🅿️ordle: PlaidCTF 2022 Problem
 
-PlaidCTF 2022 Problem
-
-Category: Misc  
-Author: luke
-Tester(s): bluepichu, strikeskids
-Flag 1 Points: 350
-Flag 2 Points: 250
+![](https://img.shields.io/badge/Category-Misc-brightgreen)
+![](https://img.shields.io/badge/Author-luke-blue)
+![](https://img.shields.io/badge/Testers-bluepichu%2C%20strikeskids-blueviolet)
+![](https://img.shields.io/badge/Flag%201-350%20points%2C%206%20solves-orange)
+![](https://img.shields.io/badge/Flag%202-250%20points%2C%200%20solves-orange)
 
 ## Flavor Text
 
