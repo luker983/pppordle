@@ -1,0 +1,9 @@
+services:
+  server:
+    build: .
+    volumes:
+      - ${PWD}/server/pppordle.log:/app/server/pppordle.log
+    ports:
+      - "1337-1341:1337-1341"
+    restart: always
+    

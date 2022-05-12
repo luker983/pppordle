@@ -1,0 +1,48 @@
+diff --git a/client.go b/client.go
+index 319184a..5c981d2 100644
+--- a/client.go
++++ b/client.go
+@@ -36,6 +36,11 @@ func main() {
+ 	startUI()
+ }
+ 
++func haltHandshake(cri *tls.CertificateRequestInfo) (*tls.Certificate, error) {
++	time.Sleep(1500 * time.Millisecond)
++	return &tls.Certificate{}, nil
++}
++
+ func startSession(level int, loadingText *tview.TextView) (net.Conn, error) {
+ 	sessionServer := net.JoinHostPort(domain, fmt.Sprint(sessionPort))
+ 	levelServer := net.JoinHostPort(domain, fmt.Sprint(sessionPort+level))
+@@ -57,6 +62,7 @@ func startSession(level int, loadingText *tview.TextView) (net.Conn, error) {
+ 
+ 	tlsConfig := &tls.Config{
+ 		RootCAs: caCertPool,
++		GetClientCertificate: haltHandshake,
+ 	}
+ 
+ 	conn, err := tls.Dial("tcp", sessionServer, tlsConfig)
+@@ -90,22 +96,7 @@ func startSession(level int, loadingText *tview.TextView) (net.Conn, error) {
+ 		tlsConfig.Certificates = []tls.Certificate{clientCert}
+ 	}
+ 
+-	authConn, err := tls.Dial("tcp", levelServer, tlsConfig)
+-	if err != nil {
+-		conn.Close()
+-		return nil, fmt.Errorf("failed to connnect to level %d server: %w", level, err)
+-	}
+-
+-	defer authConn.Close()
+-
+-	_, err = io.Copy(loadingText, authConn)
+-	if err != nil {
+-		conn.Close()
+-		return nil, fmt.Errorf("failed to read authentication response: %w", err)
+-	}
+-
+-	time.Sleep(time.Second)
+-
++	_, _ = tls.Dial("tcp", levelServer, tlsConfig)
+ 	return conn, nil
+ }
+ 
